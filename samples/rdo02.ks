@@ -15,7 +15,7 @@ clearpart --all --initlabel
 part /boot --asprimary --fstype="ext4" --size=512
 part swap --fstype="swap" --size=4096
 part / --fstype="ext4" --grow --size=1
-part pv.1 --size=20480
+part pv.1 --size=61440
 volgroup cinder-volumes pv.1
 
 %packages

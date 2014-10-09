@@ -37,6 +37,13 @@ function pre_reboot {
     openstack-config --set /etc/cinder/cinder.conf DEFAULT host $HOSTNAME
     openstack-config --set /etc/cinder/cinder.conf DEFAULT volume_clear none
     openstack-config --set /etc/cinder/cinder.conf DEFAULT storage_availability_zone az$az_num
+
+    cat <<'EOF' >/etc/rc.d/rc.local
+#!/bin/sh
+for i in $(ip -o link | awk -F: '/ eth[0-9]+/{print $2}'); do
+  ethtool -K $i tx off gro off gso off
+done
+EOF
 }
 
 function post_install {

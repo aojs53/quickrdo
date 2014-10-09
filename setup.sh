@@ -55,9 +55,29 @@ function rdo_install {
 
     cat <<'EOF' >/etc/rc.d/rc.local
 #!/bin/sh
+for i in $(ip -o link | awk -F: '/ eth[0-9]+/{print $2}'); do
+  ethtool -K $i tx off gro off gso off
+done
 (sleep 10 && systemctl restart qpidd.service) &
 EOF
     chmod u+x /etc/rc.d/rc.local
+
+    cat <<'EOF' >/usr/local/bin/disable_qr_offload.sh
+#!/bin/sh
+for n in $(ip netns | grep -E "^qrouter-"); do
+  for i in $(ip netns exec $n ip -o link | awk -F: '/ qr-/{print $2}'); do
+    ip netns exec $n ethtool -K $i tx off gro off gso off
+  done
+done
+EOF
+    chmod u+x /usr/local/bin/disable_qr_offload.sh
+
+crontab -l > /tmp/cron_tmp$$
+cat <<'EOF' >> /tmp/cron_tmp$$
+* * * * * /usr/local/bin/disable_qr_offload.sh >/dev/null 2>&1
+EOF
+crontab /tmp/cron_tmp$$
+rm -f /tmp/cron_tmp$$
 }
 
 # main

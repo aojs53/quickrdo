@@ -64,6 +64,7 @@ EOF
 
     cat <<'EOF' >/usr/local/bin/disable_qr_offload.sh
 #!/bin/sh
+PATH=$PATH:/usr/sbin
 for n in $(ip netns | grep -E "^qrouter-"); do
   for i in $(ip netns exec $n ip -o link | awk -F: '/ qr-/{print $2}'); do
     ip netns exec $n ethtool -K $i tx off gro off gso off

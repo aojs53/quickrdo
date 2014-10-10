@@ -44,6 +44,7 @@ for i in $(ip -o link | awk -F: '/ eth[0-9]+/{print $2}'); do
   ethtool -K $i tx off gro off gso off
 done
 EOF
+    chmod u+x /etc/rc.d/rc.local
 }
 
 function post_install {

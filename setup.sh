@@ -19,7 +19,7 @@ function rdo_install {
     cp /usr/lib/systemd/system/mysqld.service /usr/lib/systemd/system/mariadb.service
 
     yum -y install http://repos.fedorapeople.org/repos/openstack/openstack-havana/rdo-release-havana-9.noarch.rpm
-    yum -y install openstack-packstack-2013.2.1-0.36.dev1013.fc20.noarch
+    yum -y install openstack-packstack
 
     ./lib/genanswer.sh controller
     packstack --answer-file=controller.txt

@@ -73,12 +73,12 @@ done
 EOF
     chmod u+x /usr/local/bin/disable_qr_offload.sh
 
-crontab -l > /tmp/cron_tmp$$
-cat <<'EOF' >> /tmp/cron_tmp$$
+    crontab -l > /tmp/cron_tmp$$ || :
+    cat <<'EOF' >> /tmp/cron_tmp$$
 * * * * * /usr/local/bin/disable_qr_offload.sh >/dev/null 2>&1
 EOF
-crontab /tmp/cron_tmp$$
-rm -f /tmp/cron_tmp$$
+    crontab /tmp/cron_tmp$$
+    rm -f /tmp/cron_tmp$$
 }
 
 # main

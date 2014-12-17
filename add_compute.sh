@@ -27,7 +27,7 @@ echo
 
 # Temporarily accept all incoming packets and modify iptables config file.
 iptables -I INPUT 1 -j ACCEPT
-controller_ip=$(cat compute.txt | awk -F'=' '/CONFIG_MYSQL_HOST=/{print $2}')
+controller_ip=$(cat controller.txt | awk -F'=' '/CONFIG_MYSQL_HOST=/{print $2}')
 sed -i "s/^-A INPUT -s $controller_ip.*--dports 3260,8776 .*/-A INPUT -p tcp -m multiport --dports 3260,8776 -m comment --comment \"001 cinderapi incoming\" -j ACCEPT/" /etc/sysconfig/iptables
 sed -i "s/^-A INPUT -s $controller_ip.*--dports 9292 .*/-A INPUT -p tcp -m multiport --dports 9292 -m comment --comment \"001 glanceapi incoming\" -j ACCEPT/" /etc/sysconfig/iptables
 sed -i "s/^-A INPUT -s $controller_ip.*--dports 9696 .*/-A INPUT -p tcp -m multiport --dports 9696 -m comment --comment \"001 neutronapi incoming\" -j ACCEPT/" /etc/sysconfig/iptables

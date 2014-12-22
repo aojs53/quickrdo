@@ -52,6 +52,7 @@ function rdo_install {
     openstack-config --set /etc/cinder/cinder.conf DEFAULT default_availability_zone az1
     openstack-config --set --existing /etc/swift/proxy-server.conf filter:keystone operator_roles 'admin, SwiftOperator, _member_'
     openstack-config --set /etc/nova/nova.conf DEFAULT default_availability_zone az1
+    openstack-config --set /etc/nova/nova.conf DEFAULT allow_resize_to_same_host true
 
     cat <<'EOF' >/etc/rc.d/rc.local
 #!/bin/sh

@@ -37,6 +37,7 @@ function pre_reboot {
     openstack-config --set /etc/cinder/cinder.conf DEFAULT host $HOSTNAME
     openstack-config --set /etc/cinder/cinder.conf DEFAULT volume_clear none
     openstack-config --set /etc/cinder/cinder.conf DEFAULT storage_availability_zone az$az_num
+    openstack-config --set /etc/nova/nova.conf DEFAULT allow_resize_to_same_host true
 
     cat <<'EOF' >/etc/rc.d/rc.local
 #!/bin/sh

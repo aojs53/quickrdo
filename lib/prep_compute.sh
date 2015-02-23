@@ -9,7 +9,7 @@ function pre_install {
     systemctl start iptables.service
     systemctl enable iptables.service
 
-    yum -y install http://repos.fedorapeople.org/repos/openstack/openstack-havana/rdo-release-havana-9.noarch.rpm
+    yum -y install http://repos.fedorapeople.org/repos/openstack/openstack-juno/rdo-release-juno-1.noarch.rpm
     yum -y install openstack-packstack
 }
 

@@ -23,7 +23,7 @@ function compute {
 
     compute_ip=$(awk -F"=" '/CONFIG_NOVA_API_HOST=/{ print $2 }' compute.txt)
     sed -i "s/EXCLUDE_SERVERS=.*/EXCLUDE_SERVERS=${compute_ip}/" compute.txt
-    sed -i "s/CONFIG_NOVA_COMPUTE_HOSTS=.*/CONFIG_NOVA_COMPUTE_HOSTS=${node}/" compute.txt
+    sed -i "s/CONFIG_COMPUTE_HOSTS=.*/CONFIG_COMPUTE_HOSTS=${node}/" compute.txt
     sed -i "s/CONFIG_CINDER_HOST=.*/CONFIG_CINDER_HOST=${node}/" compute.txt
 }
 
